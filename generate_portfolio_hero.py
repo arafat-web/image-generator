@@ -71,7 +71,7 @@ def draw_accent_shapes(base):
         bbox = (center[0] - rr, center[1] - rr, center[0] + rr, center[1] + rr)
         dr.ellipse(bbox, fill=alpha)
     glow = Image.new("RGBA", (w, h), COLORS["white"] + (0,))
-    base.alpha_composite(glow, (0, 0), rad)
+    base.paste(glow, (0, 0), glow)
     base.alpha_composite(overlay)
 
 def fit_text(draw, text, max_width, base_size, bold=False):
