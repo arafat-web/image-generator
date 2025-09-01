@@ -1,0 +1,13 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.env
+
+# Artifacts
+*.png
+!portfolio_hero.png
+
+# macOS
+.DS_Store
