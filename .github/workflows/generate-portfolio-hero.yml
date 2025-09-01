@@ -1,0 +1,40 @@
+name: Generate portfolio hero image
+on:
+  workflow_dispatch:
+    inputs:
+      name:
+        description: "Name to display"
+        required: false
+      role:
+        description: "Role to display"
+        required: false
+      tagline:
+        description: "Tagline to display"
+        required: false
+      width:
+        description: "Image width (px)"
+        required: false
+      height:
+        description: "Image height (px)"
+        required: false
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install -r requirements.txt
+      - name: Generate image
+        env:
+          PORTFOLIO_NAME: ${{ github.event.inputs.name }}
+          PORTFOLIO_ROLE: ${{ github.event.inputs.role }}
+          PORTFOLIO_TAGLINE: ${{ github.event.inputs.tagline }}
+          PORTFOLIO_WIDTH: ${{ github.event.inputs.width }}
+          PORTFOLIO_HEIGHT: ${{ github.event.inputs.height }}
+        run: python generate_portfolio_hero.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: portfolio-hero
+          path: portfolio_hero.png
